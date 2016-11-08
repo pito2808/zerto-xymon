@@ -1,0 +1,53 @@
+- agabs-li001v :
+        WITHIN: 600 
+        #skip_vpg_check : [ AGABS-VPG03]
+        rpo: 300
+
+
+- stalu-dc01 :
+       #WITHIN: 500
+       #rpo: 17
+       #skip_vpg_check : [ SWMLU_UM, SWMLU_MWS]
+
+
+
+- default: 
+        WITHIN : 600
+        rpo : 300
+        toto_thres:
+            warning: 50
+            alert: 60
+        vpg_status:
+            0: 
+                label: Initializing 
+                level: 0
+            1:
+                label: MeetingSLA 
+                level: 0
+            2:  
+                label: NotMeetingSLA 
+                level: 2
+            3:
+                label: RpoNotMeetingSLA
+                level: 2
+            4:
+                label: HistoryNotMeetingSLA 
+                level: 1
+            5:  
+                label: FailingOver
+                level: 1
+            6:
+                label: Moving
+                level: 0
+            7:
+                label: Deleting 
+                level: 0
+            8:
+                label: Recovered 
+                level: 0
+
+        vpg_priority: 
+            0: Low
+            1: Medium
+            2: High
+         
