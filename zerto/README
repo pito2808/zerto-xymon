@@ -1,0 +1,68 @@
+Purpose: these scripts monitor zerto replication
+
+requirements: module PyYAML, theses scripts were written wih Python version 2.6.6 
+
+
+FILES:
+=====
+file zertoevents.py: check if events are triggered or not. it will display last 24 hours events.
+
+file zertovpgs.py: VPG health check.
+
+file zertovms.py:  Virtual Machine replicated by Zerto health check.
+
+file xymon.py : xymon subprograms
+
+file zertomonitor.py: connection to zerto using zerto restful api.
+                        shared subprograms
+
+file zerto.py: main script launched by xymon.
+
+CONFIGURATION FILES:
+====================
+
+zertoconfig.py: parse file zertoconfig.ini and should be able instance several ZVMs
+
+file zertoconfig.ini: ZVMs parameters , use brackets as ZVM separators
+
+file zertocustomers.py : parse and return values from configuration file zertocustomers.yaml
+
+file zertocustomers.yaml : 
+    - using YAML format so indentation count!!!!! use space not tab
+    - get customized parameters or default parameters
+    - for each server where zerto will be renderered currently 3 parameters can be set:
+        1. WITHIN (secondes)
+        analyze log event within WITHIN secondes when hobbit is launch. by default, 600 secondes.
+        2. skip_vpg_check (list type)
+        set VPG to skip from monitoring. Use comma to separate several VPS.
+        for example: [ SWMLU_UM, SWMLU_MWS]
+        3. rpo (secondes)
+        set rpo threshold per server . by default rpo is 300 secondes 
+
+
+HOBBIT TAG
+==========
+
+use ZERTO as a tag  then followed by NOZOG or ZOG TERM to catch vpg per customers.
+
+NOZOG : use regex to filter VPGs which belong to a customer.
+------
+for instance, customer STAPLES has all VPG name started by SMW or SWM:
+ZERTO:NOZOG:SMW|SWM
+
+AGA has all VPG names  begin with with AGA:
+ZERTO:NOZOG:AGA
+
+ZOG: filter VPG per ZOG.
+----
+
+Unfornately, no ZORG was available at the time of writing this monitoring to validate the part. Do not use this tag until validation.
+
+
+ZERTO:ZOG:zog_name
+
+
+
+
+
+
